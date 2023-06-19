@@ -22,13 +22,13 @@ jobs:
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: ""
+          expected: hello world
           actual: ${{ steps.test-data.outputs.value }}
           comparison: exact
 
       - name: Test Execution
         run: |
-          docker run --name my-container -d app:latest
+          docker run --name my-container -d captainissou42/containerdevops:GarciaAdrien
           docker exec my-container sh -c "your-test-command" || exit 1
 
       - name: Stop Container
@@ -47,4 +47,4 @@ jobs:
         with:
           push: true
           context: ./
-          tags: GarciaAdrien/app:latest
+          tags: captainissou42/containerdevops:GarciaAdrien
