@@ -8,7 +8,7 @@ jobs:
   release:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3 # Récupère le contenu du dépôt correspondant au commit du workflow en cours
+      - uses: actions/checkout@v3
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
@@ -16,7 +16,7 @@ jobs:
         run: docker build -t app:latest ./
       - name: "Say Hello"
         id: test-data
-        run: echo "value=$(docker container run app:latest hello world)" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=value::$(docker container run app:latest hello world)"
       - uses: nick-fields/assert-action@v1
         with:
           expected: hello world
