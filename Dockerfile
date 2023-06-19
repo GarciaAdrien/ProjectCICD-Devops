@@ -1,9 +1,6 @@
 # Utilisez une image de base Node.js
 FROM node:14
 
-# Définissez le répertoire de travail dans le conteneur
-WORKDIR /app
-
 # Copiez les fichiers du projet dans le conteneur
 COPY package*.json ./
 
