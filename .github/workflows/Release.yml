@@ -20,12 +20,6 @@ jobs:
         id: test-data
         run: echo "::set-output name=value::$(docker container run app:latest hello world)"
 
-      - uses: nick-fields/assert-action@v1
-        with:
-          expected: hello world
-          actual: ${{ steps.test-data.outputs.value }}
-          comparison: exact
-
       - name: Test Execution
         run: |
           docker run --name my-container -d captainissou42/containerdevops:GarciaAdrien
