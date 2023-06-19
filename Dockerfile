@@ -9,6 +9,9 @@ RUN npm install
 # Copiez le reste du code source de l'application
 COPY . .
 
+# Définissez un volume pour les données
+VOLUME /data
+
 # Exposez le port sur lequel votre application écoute
 EXPOSE 8080
 
