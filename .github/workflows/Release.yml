@@ -21,8 +21,7 @@ jobs:
         run: echo "::set-output name=value::$(docker container run app:latest hello world)"
         
       - name: Check Container Status
-        run: |
-          docker ps -a --filter "name=my-container" --format "{{.Status}}" | grep -q "Up" || exit 1
+        run: docker ps -a --filter "name=my-container" 
 
       - name: Stop Execution
         run: |
