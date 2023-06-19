@@ -1,8 +1,8 @@
 # Utilisez une image de base Node.js
 FROM node:14
 
-# Copiez les fichiers du projet dans le conteneur
-#COPY README.md ./
+# Définissez le répertoire de travail dans le conteneur
+WORKDIR /app
 
 # Installez les dépendances avec npm
 RUN npm install
