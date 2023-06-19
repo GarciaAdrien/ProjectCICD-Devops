@@ -22,7 +22,7 @@ jobs:
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: hello world
+          expected: ""
           actual: ${{ steps.test-data.outputs.value }}
           comparison: exact
 
