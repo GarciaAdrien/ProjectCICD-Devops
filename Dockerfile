@@ -1,23 +1,22 @@
-# Utilisez une image de base Node.js version 14
+# Utilisez une image de base Node.js
 FROM node:14
 
-# Définissez le répertoire de travail dans le conteneur comme /app
+# Définissez le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copiez les fichiers package.json et package-lock.json dans le conteneur
+# Copiez les fichiers du projet dans le conteneur
 COPY package*.json ./
 
-# Installez les dépendances npm
-RUN npm install
+# Installez les dépendances en spécifiant les versions des packages, en supprimant les listes apt-get et en évitant les paquets recommandés
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends <package1>=<version1> <package2>=<version2> && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copiez le reste du code source de l'application dans le conteneur
+# Copiez le reste du code source de l'application
 COPY . .
 
-# Mettez à jour les paquets du système et installez le package cowsay
-RUN apt-get update && apt-get install -y cowsay
+# Exposez le port sur lequel votre application écoute
+EXPOSE 8080
 
-# Exposez le port 8081 pour l'application
-EXPOSE 8081
-
-# Définissez la commande par défaut pour démarrer le conteneur, en utilisant cowsay pour afficher "Hello, Docker!"
-CMD ["cowsay", "Hello, Docker!"]
+# Commande de démarrage de l'application
+CMD ["node", "app.js"]
