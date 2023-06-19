@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Installez les dépendances avec npm
 RUN npm install
-WORKDIR "Scrutin TP2"
 # Copiez le reste du code source de l'application
 COPY . .
 
