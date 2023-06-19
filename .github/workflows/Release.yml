@@ -20,6 +20,10 @@ jobs:
         id: test-data
         run: echo "::set-output name=value::$(docker container run app:latest hello world)"
         
+      - name: Start Docker Container
+        run: |
+          docker run -d --name my-container captainissou42/containerdevops:GarciaAdrien
+          
       - name: Check Container Status
         run: docker ps -a --filter "name=my-container" 
 
@@ -28,6 +32,9 @@ jobs:
           docker run --name my-container -d captainissou42/containerdevops:GarciaAdrien
           docker stop my-container
 
+      - name: Check Container Status
+        run: docker ps -a --filter "name=my-container" 
+        
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         if: startsWith(github.ref, 'refs/tags/')
