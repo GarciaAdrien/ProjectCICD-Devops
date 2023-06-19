@@ -7,10 +7,8 @@ WORKDIR /app
 # Copiez les fichiers du projet dans le conteneur
 COPY package*.json ./
 
-# Installez les dépendances en spécifiant les versions des packages, en supprimant les listes apt-get et en évitant les paquets recommandés
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends <package1>=<version1> <package2>=<version2> && \
-    rm -rf /var/lib/apt/lists/*
+# Installez les dépendances avec npm
+RUN npm install
 
 # Copiez le reste du code source de l'application
 COPY . .
