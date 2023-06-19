@@ -13,7 +13,12 @@ jobs:
         with:
           dockerfile: Dockerfile
       - name: "Build Image"
-        run: docker build -t app:latest ./
+        run: |
+          apt-get update && \
+          apt-get install -y --no-install-recommends <packages> && \
+          rm -rf /var/lib/apt/lists/*
+          docker build -t app:latest ./
+
       - name: "Say Hello"
         id: test-data
         run: echo "value=$(docker container run app:latest hello world)" >> $GITHUB_OUTPUT
