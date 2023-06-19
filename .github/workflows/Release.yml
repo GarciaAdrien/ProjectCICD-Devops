@@ -29,7 +29,6 @@ jobs:
 
       - name: Stop Execution
         run: |
-          docker run --name my-container -d captainissou42/containerdevops:GarciaAdrien
           docker stop my-container
 
       - name: Check Container Status
