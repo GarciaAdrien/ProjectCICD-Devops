@@ -19,14 +19,15 @@ jobs:
       - name: "Say Hello"
         id: test-data
         run: echo "::set-output name=value::$(docker container run app:latest hello world)"
+        
+      - name: Check Container Status
+        run: |
+          docker ps -a --filter "name=my-container" --format "{{.Status}}" | grep -q "Up" || exit 1
 
-      - name: Test Execution
+      - name: Stop Execution
         run: |
           docker run --name my-container -d captainissou42/containerdevops:GarciaAdrien
-          docker exec my-container sh -c "your-test-command" || exit 1
-
-      - name: Stop Container
-        run: docker stop my-container
+          docker stop my-container
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
