@@ -2,7 +2,7 @@
 FROM node:14
 
 # Copiez les fichiers du projet dans le conteneur
-COPY package*.json ./
+COPY README.md ./
 
 # Installez les dépendances avec npm
 RUN npm install
