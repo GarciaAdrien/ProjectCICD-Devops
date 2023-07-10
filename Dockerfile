@@ -1,8 +1,8 @@
 # Utilisez une image de base Node.js
 FROM node:14
 
-WORKDIR /
-
+WORKDIR /app
+COPY package.json .
 # Installez les dépendances avec npm
 RUN npm install
 # Copiez le reste du code source de l'application
@@ -15,4 +15,4 @@ VOLUME /data
 EXPOSE 8080
 
 # Commande de démarrage de l'application
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
