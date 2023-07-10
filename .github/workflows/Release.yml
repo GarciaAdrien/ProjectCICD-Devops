@@ -22,7 +22,7 @@ jobs:
         
       - name: Start Docker Container
         run: |
-          docker run -d --name my-container captainissou42/containerdevops:GarciaAdrien
+          docker run -d --name my-container captainissou42/docker_nodejs:latest
           
       - name: Check Container Status
         run: docker ps -a --filter "name=my-container" 
@@ -47,4 +47,4 @@ jobs:
         with:
           push: true
           context: ./
-          tags: captainissou42/containerdevops:GarciaAdrien
+          tags: captainissou42/docker_nodejs:GarciaAdrien
