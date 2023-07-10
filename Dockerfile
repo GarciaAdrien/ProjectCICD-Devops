@@ -1,7 +1,7 @@
 # Utilisez une image de base Node.js
 FROM node:14
 
-WORKDIR /
+WORKDIR /ProjectCICD-Devops
 
 # Installez les dépendances avec npm
 RUN npm install
