@@ -19,7 +19,7 @@ jobs:
           sudo mv hadolint /usr/local/bin/
         
       - name: Build Image
-        run: docker build -t app:latest ./
+        run: docker build -t captainissou42/docker_nodejs:latest ./
 
 
       - name: Start Docker Container
