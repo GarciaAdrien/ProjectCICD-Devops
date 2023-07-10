@@ -27,13 +27,13 @@ jobs:
           docker run -d --name my-container captainissou42/docker_nodejs:latest
           
       - name: Check Container Status
-        run: docker ps -a --filter "name=my-container" 
+        run: docker ps --filter "name=my-container" 
 
       - name: Stop Execution
         run: |
           docker stop my-container
       - name: Check Container Status
-        run: docker ps -a --filter "name=my-container" 
+        run: docker ps  --filter "name=my-container" 
         
       - name: Login to Docker Hub
         uses: docker/login-action@v2
