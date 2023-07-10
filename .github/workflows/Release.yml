@@ -3,48 +3,49 @@ on:
   pull_request:
   push:
   schedule:
-    - cron: "0 0 * * *"
+
+cron: "0 0 * * *"
 
 jobs:
   release:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
-      - name: Build Image
-        run: docker build -t app:latest ./
+name: Checkout
+      uses: actions/checkout@v3
 
-      - name: "Say Hello"
-        id: test-data
-        run: echo "::set-output name=value::$(docker container run app:latest hello world)"
-        
-      - name: Start Docker Container
-        run: |
-          docker run -d --name my-container captainissou42/docker_nodejs:latest
-          
-      - name: Check Container Status
-        run: docker ps -a --filter "name=my-container" 
+name: Install Hadolint
+      run: |
+        curl -sL -o hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+        chmod +x hadolint
+        sudo mv hadolint /usr/local/bin/
 
-      - name: Stop Execution
-        run: |
-          docker stop my-container
+name: Build Image
+      run: docker build -t app:latest ./
+name: Start Docker Container
+run: |
+  docker run -d --name my-container captainissou42/docker_nodejs:latest
+name: Check Container Status
+run: docker ps -a --filter "name=my-container"
 
-      - name: Check Container Status
-        run: docker ps -a --filter "name=my-container" 
-        
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          username: GarciaAdrien
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+name: Stop Execution
+      run: |
+        docker stop my-container
 
-      - name: Push if on `main`
-        uses: docker/build-push-action@v4
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          push: true
-          context: ./
-          tags: captainissou42/docker_nodejs:GarciaAdrien
+name: Check Container Status
+      run: docker ps -a --filter "name=my-container" 
+name: Login to Docker Hub
+uses: docker/login-action@v2
+if: startsWith(github.ref, 'refs/tags/')
+with:
+  username: GarciaAdrien
+  password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+name: Push if on main
+      uses: docker/build-push-action@v4
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        push: true
+        context: ./
+        tags: captainissou42/docker_nodejs:GarciaAdrien
